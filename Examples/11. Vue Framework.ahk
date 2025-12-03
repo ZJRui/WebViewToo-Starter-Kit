@@ -20,24 +20,36 @@ global win := unset
 	win.Navigate "index.html"
 	win.Show "w800 h600"
 
-	WebButtonClickEvent(button) {
-		MsgBox "You clicked the " button " button"
-	}
-
-	FormSubmit(formData) {
-		MsgBox(
-			"Email: " formData.email "`n"
-			"Password: " formData.password "`n"
-			"Address: " formData.address "`n"
-			"Address2: " formData.address2 "`n"
-			"City: " formData.city "`n"
-			"State: " formData.state "`n"
-			"Zip: " formData.zip "`n"
-			"Check: " formData.check "`n"
-		)
-	}
 
 }
+/**
+ * vue中: @click="ahk.global.WebButtonClickEvent(color)"
+ * ahk.global中的函数必须是全局的. 
+ * 
+ * @param button 
+ */
+WebButtonClickEvent(button) {
+	MsgBox "You clicked the " button " button"
+}
+
+FormSubmit(formData) {
+	MsgBox(
+		"Email: " formData.email "`n"
+		"Password: " formData.password "`n"
+		"Address: " formData.address "`n"
+		"Address2: " formData.address2 "`n"
+		"City: " formData.city "`n"
+		"State: " formData.state "`n"
+		"Zip: " formData.zip "`n"
+		"Check: " formData.check "`n"
+	)
+}
+class AhkGlobalFunctions {
+	static WebButtonClickEvent(button) {
+		MsgBox "You clicked the " button " button"
+	}
+}
+
 #2:: {
 	if (IsSet(win)) {
 		win.Destroy()
