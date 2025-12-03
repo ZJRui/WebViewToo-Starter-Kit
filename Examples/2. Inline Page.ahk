@@ -5,8 +5,7 @@
 ; directory.
 
 
-#Include ..\Lib\WebViewToo.ahk
-
+#Include ../WebViewToo/Lib/WebViewToo.ahk 
 ; Specify any resources from the script directory that need to be available
 ; when the script is compiled
 ;@Ahk2Exe-AddResource Image2.jpg

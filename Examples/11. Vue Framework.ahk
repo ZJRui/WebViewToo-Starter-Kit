@@ -5,30 +5,41 @@
 
 #Include ../WebViewToo/Lib/WebViewToo.ahk
 
-
 global startingStore := Map(
 	"name", A_UserName
 )
+global win := unset
+#1:: {
+	global win
+	if (IsSet(win)) {
+		win.Destroy()
+	}
+	win := WebViewGui("Resize -Caption")
 
-win := WebViewGui("Resize -Caption")
+	win.BrowseFolder "11. Vue Framework"
+	win.Navigate "index.html"
+	win.Show "w800 h600"
 
-win.BrowseFolder "11. Vue Framework"
-win.Navigate "index.html"
-win.Show "w800 h600"
+	WebButtonClickEvent(button) {
+		MsgBox "You clicked the " button " button"
+	}
 
-WebButtonClickEvent(button) {
-	MsgBox "You clicked the " button " button"
+	FormSubmit(formData) {
+		MsgBox(
+			"Email: " formData.email "`n"
+			"Password: " formData.password "`n"
+			"Address: " formData.address "`n"
+			"Address2: " formData.address2 "`n"
+			"City: " formData.city "`n"
+			"State: " formData.state "`n"
+			"Zip: " formData.zip "`n"
+			"Check: " formData.check "`n"
+		)
+	}
+
 }
-
-FormSubmit(formData) {
-	MsgBox(
-		"Email: " formData.email "`n"
-		"Password: " formData.password "`n"
-		"Address: " formData.address "`n"
-		"Address2: " formData.address2 "`n"
-		"City: " formData.city "`n"
-		"State: " formData.state "`n"
-		"Zip: " formData.zip "`n"
-		"Check: " formData.check "`n"
-	)
+#2:: {
+	if (IsSet(win)) {
+		win.Destroy()
+	}
 }

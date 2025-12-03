@@ -3,7 +3,7 @@
 ; This example displays a static UI where the HTML and other non-text resources
 ; are inside the AutoHotkey script file.
 
-#Include ..\Lib\WebViewToo.ahk
+#Include ../WebViewToo/Lib/WebViewToo.ahk 
 
 g := WebViewGui()
 

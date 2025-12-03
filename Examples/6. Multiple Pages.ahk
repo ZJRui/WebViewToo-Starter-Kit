@@ -3,8 +3,7 @@
 ; This example demonstrates how you can build a UI that uses multiple HTML
 ; pages, accessible by tab-style navigation links.
 
-#Include ..\Lib\WebViewToo.ahk
-
+#Include ../WebViewToo/Lib/WebViewToo.ahk 
 ; Specify any resources from the script directory that need to be available
 ; when the script is compiled
 ;@Ahk2Exe-AddResource Image1.jpg

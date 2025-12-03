@@ -3,7 +3,7 @@
 ; This example demonstrates how you can embed WebViewToo as a control on an
 ; otherwise normal AutoHotkey GUI.
 
-#Include ..\Lib\WebViewToo.ahk
+#Include ../WebViewToo/Lib/WebViewToo.ahk 
 
 g := Gui("Resize")
 g.MarginX := 5, g.MarginY := 5

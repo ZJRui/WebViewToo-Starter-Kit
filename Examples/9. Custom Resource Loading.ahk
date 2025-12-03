@@ -5,8 +5,7 @@
 ; resources (or paths to those resources) are hard-coded into the script. In
 ; this example, we demonstrate how resources can be supplied dynamically at
 ; run-time based on the path it was requested from.
-
-#Include ..\Lib\WebViewToo.ahk
+#Include ../WebViewToo/Lib/WebViewToo.ahk
 
 g := WebViewGui("Resize")
 

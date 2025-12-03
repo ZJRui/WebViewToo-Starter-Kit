@@ -4,8 +4,38 @@
 
 #Include ./WebViewToo/Lib/WebViewToo.ahk
 
+/**
+ * this.Control.wv.AddHostObjectToScript("gui", {
+ *     __Call: ((Hwnd, Th, Name, Q) => GuiFromHwnd(Hwnd).%Name%(Q*)).Bind(this.Hwnd)
+ * })
+ * ✨ 高级亮点：JS → AHK 的桥接
+ * 将名为 gui 的 AHK 对象注入到 JavaScript 中（在网页中可以通过 window.chrome.webview.hostObjects.gui 访问）。
+ * 
+ * JS 调用 gui.SomeMethod(...) 会等价于 AHK 执行 GuiFromHwnd(this.Hwnd).SomeMethod(...)
+ * 
+ * .Bind(this.Hwnd) 绑定当前窗口句柄
+ */
 
 g := WebViewGui("Resize")
+
+
+/**
+ * g.AddTextRoute(...) 是 WebViewToo 提供的一个核心方法，目的是：将一段字符串内容注册为 WebView 页面中的一个虚拟资源（文件），用于被 WebView2 加载。
+ * 
+ * 🧩 用法格式
+ * ahk
+ * 复制
+ * 编辑
+ * g.AddTextRoute(Route, Text, Host := "ahk.localhost")
+ * 参数说明：
+ * 参数	类型	说明
+ * Route	String	路径（虚拟网址路径），如 "index.html"、"style.css"
+ * Text	String	实际内容（HTML / CSS / JS / 纯文本）
+ * Host	String（可选）	虚拟主机名（默认 "ahk.localhost"）
+ * 
+ * 这个方法的意义是：给 WebView 注册一条“假网址”，让它访问这个网址时返回我们传入的字符串。
+ */
+
 
 g.AddTextRoute "index.html", "
 ( ; html
@@ -188,6 +218,28 @@ p { line-height: 1.5em; }
 
 )"
 
+
+g.AddTextRoute "index.js", "
+(
+    // 从 ./utils.js 模块中导入 PI 和 sum
+import { PI, sum } from './utils.js';
+
+console.log("PI 的值是:", PI); // 输出: PI 的值是: 3.14159
+console.log("5 + 8 =", sum(5, 8)); // 输出: 5 + 8 = 13
+
+)"
+
+g.AddTextRoute "utils.js", "
+(
+    // 导出一个名为 PI 的常量
+export const PI = 3.14159;
+
+// 导出一个名为 sum 的函数
+export function sum(a, b) {
+    return a + b;
+}
+    
+)"
 ; g.BrowseFolder "Docs", "docs.localhost"
 
 g.Navigate "index.html"
